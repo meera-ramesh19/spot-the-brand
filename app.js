@@ -40,10 +40,7 @@ const endpoint = process.env.MS_COMPUTER_VISION_ENDPOINT;
 const faceEndpoint = process.env.MS_FACE_ENDPOINT;
 const subscriptionKey = process.env.MS_FACE_SUB_KEY;
 
-const computerVisionClient = new ComputerVisionClient(
-  new ApiKeyCredentials({ inHeader: { "Ocp-Apim-Subscription-Key": key } }),
-  endpoint
-);
+const computerVisionClient = new ComputerVisionClient(new ApiKeyCredentials({ inHeader: { "Ocp-Apim-Subscription-Key": key } }), endpoint);
 
 //Server Setup
 app.set("view engine", "ejs");
@@ -59,27 +56,39 @@ app.post("/", upload.single("file-to-upload"), async (req, res) => {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
     const brandURLImage = result.secure_url;
+      
+    // // <snippet_brands>
+    //   const brandURLImage = 'https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/images/red-shirt-logo.jpg';
+  
+       /**
+         * DETECT BRAND
+         * Detects brands and logos that appear in an image.
+         */
+        console.log('-------------------------------------------------');
+        console.log('DETECT BRAND');
+        console.log(brandURLImage);
+        console.log();
+
+   
+        
     // Analyze URL image
     console.log("Analyzing brands in image...", brandURLImage.split("/").pop());
-    const brands = (
-      await computerVisionClient.analyzeImage(brandURLImage, {
-        visualFeatures: ["Brands"],
-      })
-    ).brands;
+    const brands = (await computerVisionClient.analyzeImage(brandURLImage, { visualFeatures: ['Brands'] })).brands;
+    console.log(brands)
 
     // Print the brands found
     if (brands.length) {
-      console.log(
-        `${brands.length} brand${brands.length != 1 ? "s" : ""} found:`
-      );
+      console.log(`${brands.length} brand${brands.length != 1 ? "s" : ""} found:`);
       for (const brand of brands) {
-        console.log(
-          `    ${brand.name} (${brand.confidence.toFixed(2)} confidence)`
-        );
+        console.log(`    ${brand.name} (${brand.confidence.toFixed(2)} confidence)`);
       }
     } else {
-      console.log(`No brands found.`);
-    }
+      console.log(`No brands found.`);}
+
+
+      // </snippet_brands>
+      console.log();
+
     res.render("result.ejs", { brands: brands, img: brandURLImage });
   } catch (err) {
     console.log(err);

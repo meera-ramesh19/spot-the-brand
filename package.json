@@ -1,5 +1,5 @@
 {
-  "name": "How Is The Interview Going",
+  "name": "spot-the-brand",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -11,11 +11,17 @@
   "license": "MIT",
   "dependencies": {
     "@azure/cognitiveservices-computervision": "^8.1.0",
-    "async": "^3.2.0",
-    "cloudinary": "^1.26.1",
+    "@azure/cognitiveservices-face": "^4.2.0",
+    "async": "^3.2.1",
+    "axios": "^0.21.1",
+    "azure-cognitiveservices-vision": "^2.0.0",
+    "cloudinary": "^1.26.3",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "multer": "^1.4.2"
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "multer": "^1.4.3",
+    "path": "^0.12.7"
   }
 }

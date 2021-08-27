@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Hot dog not hot dog</title>
+    <title>Brand Names</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <img src="<%= img%>" alt="Hot dog" />
+    <img src="<%= img%>" alt="Loaded Image" />
 
     <ul>
       <% for (let i = 0; i<brands.length; i++) { %>
-        <li><%=brands[i].name%> <%=brands[i].confidence.toFixed(2)%> confidence</li>
+        <li><%=brands[i].name%> <%=brands[i].confidence.toFixed(2) *100 %> %confidence</li>
       <% } %>
     </ul>
 
